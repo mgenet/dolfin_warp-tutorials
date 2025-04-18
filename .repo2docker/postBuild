@@ -20,6 +20,8 @@ cd
 echo "alias ll=\"ls -l\"" >> ~/.bash_aliases
 echo "alias la=\"ls -la\"" >> ~/.bash_aliases
 
+export CPATH=$CPATH:"/srv/conda/envs/notebook/include/vtk-9.2" # MG20250418: Somehow repo2docker does not seem to take into account the environment variable defined in environment.yml, but this does not work…
+
 rm ~/apt.txt
 rm ~/environment.yml
 rm ~/postBuild

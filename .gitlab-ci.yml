@@ -15,7 +15,6 @@ build_docker:
   tags:
     - ci.inria.fr
     - large
-  # image: registry.gitlab.inria.fr/inria-ci/docker/ubuntu:20.04
   image: ubuntu:20.04
   script:
     - apt update; DEBIAN_FRONTEND=noninteractive apt install -y ca-certificates curl git gnupg lsb-release mercurial python3 python3-pip tzdata

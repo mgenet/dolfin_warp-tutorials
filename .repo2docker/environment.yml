@@ -13,16 +13,23 @@ channels:
   - defaults
 
 dependencies:
-# python
-  - mpi4py=3.1.3 # MG20220906: To avoid mpi warnings in FEniCS, cf. https://fenicsproject.discourse.group/t/runtimewarning-mpi4py-mpi-file-size-changed-may-indicate-binary-incompatibility-expected-32-from-c-header-got-40-from-pyobject-def-compile-class-cpp-data-mpi-comm-mpi-comm-world/6496 # MG20220906: Note that 3.0.3 leads to a `RuntimeError: Error when importing mpi4py`, but 3.1.3 seems to work.
+# dolfin_warp
+  - expat=2.5
+  - fenics=2019.1.0
+  - gnuplot=5.4
+  - matplotlib=3.5
+  - meshio=5.3
+  - mpi4py=3.1.3
   - numpy=1.21.6 # MG20221220: later numpy versions seem incompatible with itkwidgets 0.32
-  - python=3.8
+  - pandas=1.3
+  - python=3.10
   - scipy=1.9
-  - sympy=1.9
+  - vtk=9.2
 
 # jupyter
-  - ipywidgets=7.6 # MG20221226: cf. https://github.com/InsightSoftwareConsortium/itkwidgets/pull/590/files # MG20230601: Somehow this is still needed, despite the updated itkwidgets version…
-  - itkwidgets=0.32
+  - ipydatawidgets=4.3.2
+  - ipywidgets=7.6.5 # MG20221226: cf. https://github.com/InsightSoftwareConsortium/itkwidgets/pull/590/files # MG20230601: Somehow this is still needed, despite the updated itkwidgets version…
+  - itkwidgets=0.32.6
   # MG20240123: Specified all these versions based on the 2023 build to get ipywidgets and itkwidgets to properly interact
   - jupyter=1.0.0
   - jupyter_client=7.4.8
@@ -36,33 +43,13 @@ dependencies:
   - jupyter_server=2.0.6
   - jupyter_server_terminals=0.4.3
   # MG20240123: Specified all these versions based on the 2023 build to get ipywidgets and itkwidgets to properly interact
-  - jupyterlab=3.5 # MG20230602: This seems to be needed as well, otherwise jupyter does not start on binder
-  - notebook=6.4 # MG20221226: cf. https://github.com/InsightSoftwareConsortium/itkwidgets/pull/590/files # MG20230601: Somehow this is still needed, despite the updated itkwidgets version…
-
-# coding stuff
-  - git=2.39
-
-# computing stuff
-  - expat=2.5
-  - fenics=2019.1.0
-  - vtk=9.0 # MG20201223: Need to correspond to the environment variable CPATH # MG20220628: Apparently there is some kind of conflict between vtk9.1 & libstdc++.so.6 in Ubuntu 20.04… # MG20221220: Apparently there is some kind of conflict between vtk9.1 & itkwidgets 0.32…
-
-# plotting stuff
-  - matplotlib=3.5
-  - gnuplot=5.4
+  - jupyterlab=3.5.2 # MG20230602: This seems to be needed as well, otherwise jupyter does not start on binder
+  - notebook=6.4.6 # MG20221226: cf. https://github.com/InsightSoftwareConsortium/itkwidgets/pull/590/files # MG20230601: Somehow this is still needed, despite the updated itkwidgets version…
+  - traitlets=5.6.0 # MG20221226: cf. https://github.com/InsightSoftwareConsortium/itkwidgets/pull/590/files # MG20230601: Somehow this is still needed, despite the updated itkwidgets version…
 
   - pip
   - pip:
-  # python
-    - numpy==1.21.6 # MG20240605: meshio seems to be installing a newer numpy…
-    - zstd
-
-  # computing stuff
-    - gmsh==4.9.0
-    - meshio==5.3.4
-
-  # tracking stuff
     - dolfin_warp
 
 variables:
-    CPATH: /srv/conda/envs/notebook/include/vtk-9.0
+    CPATH: /srv/conda/envs/notebook/include/vtk-9.2 # MG20250418: Somehow repo2docker does not seem to take into account the environment variable defined in environment.yml…

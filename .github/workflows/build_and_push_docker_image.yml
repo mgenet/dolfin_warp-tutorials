@@ -1,0 +1,22 @@
+on:
+  - push
+
+jobs:
+  build_and_push_docker_image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@main
+
+    - name: Prepare build
+      run: |
+        rm -rf ${{github.workspace}}/.binder
+        cp ${{github.workspace}}/.repo2docker/* ${{github.workspace}}/.
+
+    - name: Build and push docker image
+      uses: jupyterhub/repo2docker-action@master
+      with:
+        DOCKER_USERNAME: ${{github.actor}}
+        DOCKER_PASSWORD: ${{secrets.GITHUB_TOKEN}}
+        DOCKER_REGISTRY: ghcr.io

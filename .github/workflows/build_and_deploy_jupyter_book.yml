@@ -1,0 +1,29 @@
+on:
+  - push
+
+jobs:
+  build_and_deploy_jupyter_book:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+      
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@main
+    
+    - name: Build Jupyter Book
+      run: |
+        pip install -U jupyter-book
+        jupyter-book clean .
+        jupyter-book build .
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@main
+      with:
+        path: "_build/html"
+
+    - name: Deploy Jupyter Book to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@main
